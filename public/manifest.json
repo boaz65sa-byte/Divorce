@@ -1,0 +1,11 @@
+{
+  "name": "תגרשן לי",
+  "short_name": "תגרשן לי",
+  "description": "מדריך וכלים לגירושין בישראל",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "lang": "he",
+  "dir": "rtl"
+}
