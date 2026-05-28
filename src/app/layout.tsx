@@ -4,6 +4,7 @@ import { BsPageAccent, BsPatternBg, BsSignature } from "@/components/brand/BsSim
 import { RegisterServiceWorker } from "@/components/brand/RegisterServiceWorker";
 import { ReminderNotificationSync } from "@/components/brand/ReminderNotificationSync";
 import { LegalDisclaimer } from "@/components/ui";
+import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import { rubik } from "@/lib/fonts";
 import "./globals.css";
@@ -14,9 +15,9 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "תגרשן לי — מדריך וכלים לגירושין",
+  title: `${BRAND.name} — ${BRAND.tagline}`,
   description:
-    "ידע משפטי, צ'ק-ליסט, מחשבוני מזונות וחלוקת הוצאות לגירושין בישראל · bs-simple · בועז סעדה",
+    `${BRAND.tagline}. ידע משפטי, צ'ק-ליסט, מחשבוני מזונות ולוח משמורת · ${BS_SIMPLE.signature}`,
   manifest: "/manifest.json",
   authors: [{ name: BS_SIMPLE.author }],
   creator: BS_SIMPLE.signature,
@@ -26,9 +27,8 @@ export const metadata: Metadata = {
     apple: "/icons/icon.svg",
   },
   openGraph: {
-    title: "תגרשן לי — מדריך וכלים לגירושין בישראל",
-    description:
-      "גירושין בישראל — ידע משפטי, מחשבונים, לוח משמורת ומפת דרכים. חינם, בעברית, פרטי.",
+    title: `${BRAND.name} — ${BRAND.tagline}`,
+    description: BRAND.promise,
     locale: "he_IL",
     type: "website",
     images: [
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "תגרשן לי",
-    description: BS_SIMPLE.tagline,
+    title: BRAND.name,
+    description: BRAND.tagline,
     images: ["/images/cover.jpeg"],
   },
 };

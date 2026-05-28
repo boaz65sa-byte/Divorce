@@ -10,7 +10,7 @@ import {
   ToolChip,
 } from "@/components/ui";
 import { BsSection } from "@/components/brand/BsSimple";
-import { BS_SIMPLE } from "@/lib/brand/bsSimple";
+import { BRAND } from "@/lib/brand/brand";
 import {
   getChecklistForProfile,
   roadmapSteps,
@@ -21,47 +21,56 @@ import {
   getUpcomingReminders,
   useProfileStore,
 } from "@/lib/store/profileStore";
+import type { BrandIconName } from "@/components/brand/BrandIcons";
+import type { IconTone } from "@/components/brand/BrandIcons";
 
-const quickActions = [
+const quickActions: {
+  href: string;
+  title: string;
+  description: string;
+  icon: BrandIconName;
+  iconTone: IconTone;
+  featured?: boolean;
+}[] = [
   {
     href: "/assistant",
     title: "עוזר חכם",
     description: "שאל/י על החוק",
-    emoji: "💬",
-    iconTone: "violet" as const,
+    icon: "assistant",
+    iconTone: "violet",
     featured: true,
   },
   {
     href: "/roadmap",
     title: "המסלול שלי",
     description: "שלבי ההליך",
-    emoji: "🗺️",
-    iconTone: "teal" as const,
+    icon: "roadmap",
+    iconTone: "teal",
   },
   {
     href: "/knowledge",
     title: "מה החוק אומר",
     description: "זכויות וחובות",
-    emoji: "⚖️",
-    iconTone: "indigo" as const,
+    icon: "knowledge",
+    iconTone: "indigo",
   },
   {
     href: "/calculators",
     title: "מחשבונים",
     description: "מזונות, BTL, רכוש",
-    emoji: "🧮",
-    iconTone: "amber" as const,
+    icon: "calculators",
+    iconTone: "amber",
   },
 ];
 
-const extraTools = [
-  { href: "/calendar", title: "לוח משמורת", emoji: "📅" },
-  { href: "/reminders", title: "תזכורות", emoji: "🔔" },
-  { href: "/journal", title: "יומן", emoji: "📒" },
-  { href: "/professionals", title: "עו\"ד", emoji: "👔" },
-  { href: "/courts", title: "ערכאות", emoji: "🏛️" },
-  { href: "/agreement", title: "הסכם", emoji: "📄" },
-  { href: "/resources", title: "קישורים", emoji: "🔗" },
+const extraTools: { href: string; title: string; icon: BrandIconName; tone: IconTone }[] = [
+  { href: "/calendar", title: "לוח משמורת", icon: "calendar", tone: "rose" },
+  { href: "/reminders", title: "תזכורות", icon: "reminders", tone: "violet" },
+  { href: "/journal", title: "יומן", icon: "journal", tone: "teal" },
+  { href: "/professionals", title: "עו\"ד", icon: "professionals", tone: "indigo" },
+  { href: "/courts", title: "ערכאות", icon: "courts", tone: "sky" },
+  { href: "/agreement", title: "הסכם", icon: "agreement", tone: "amber" },
+  { href: "/resources", title: "קישורים", icon: "resources", tone: "teal" },
 ];
 
 export default function HomePage() {
@@ -106,10 +115,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <PageHeader
-        title={greeting}
-        subtitle={BS_SIMPLE.tagline}
-      />
+      <PageHeader title={greeting} subtitle={BRAND.tagline} />
 
       {upcoming.length > 0 && (
         <Link
@@ -129,7 +135,7 @@ export default function HomePage() {
       {profile.hasChildren && (
         <FeatureCard
           href="/calendar"
-          emoji="📅"
+          icon="calendar"
           title="לוח משמורת"
           description="שבתות, חגים, וסנכרון למחשבון מזונות"
           iconTone="rose"

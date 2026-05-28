@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { LogoMark } from "@/components/brand/Logo";
+import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 
 export function BsBrandMark({
@@ -8,26 +10,17 @@ export function BsBrandMark({
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
 }) {
-  const sizes = {
-    sm: "h-7 w-7 text-[10px]",
-    md: "h-9 w-9 text-xs",
-    lg: "h-12 w-12 text-sm",
-  };
+  const sizes = { sm: 28, md: 36, lg: 48 };
 
   return (
     <div className="flex items-center gap-2">
-      <div
-        className={`bs-mark flex shrink-0 items-center justify-center rounded-xl font-black text-white shadow-sm ring-2 ring-white/30 ${sizes[size]}`}
-        aria-hidden
-      >
-        bs
-      </div>
+      <LogoMark size={sizes[size]} className="shrink-0 shadow-sm" />
       {showLabel && (
         <div className="leading-tight">
-          <p className="text-xs font-bold tracking-wide text-slate-800">
-            {BS_SIMPLE.name}
+          <p className="text-xs font-bold tracking-tight text-slate-800">
+            {BRAND.name}
           </p>
-          <p className="text-[10px] text-slate-500">{BS_SIMPLE.author}</p>
+          <p className="text-[10px] text-slate-500">{BS_SIMPLE.signature}</p>
         </div>
       )}
     </div>
@@ -64,7 +57,7 @@ export function BsSignature({ compact = false }: { compact?: boolean }) {
     >
       <div className="bs-accent-line mx-auto mb-2 max-w-[120px]" />
       <p className="text-[11px] font-semibold tracking-wider text-slate-600">
-        {BS_SIMPLE.signature}
+        {BRAND.name} · {BS_SIMPLE.signature}
       </p>
       {!compact && (
         <p className="mt-1 text-[10px] text-slate-400">{BS_SIMPLE.tagline}</p>
@@ -110,7 +103,7 @@ export function BsSection({
               <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
             )}
           </div>
-          <BsBadge variant="soft">bs-simple</BsBadge>
+          <BsBadge variant="soft">{BRAND.name}</BsBadge>
         </div>
       )}
       {children}

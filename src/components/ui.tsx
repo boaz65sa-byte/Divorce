@@ -1,6 +1,12 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { BsBadge } from "@/components/brand/BsSimple";
+import {
+  BrandIcon,
+  type BrandIconName,
+  type IconTone,
+} from "@/components/brand/BrandIcons";
+import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import {
   buildReportText,
@@ -44,7 +50,7 @@ export function PageHeader({
   return (
     <div className="mb-6">
       <div className="mb-4 flex items-center justify-between gap-2">
-        <BsBadge variant="accent">bs-simple</BsBadge>
+        <BsBadge variant="accent">{BRAND.name}</BsBadge>
         <span className="text-[10px] font-medium tracking-wide text-slate-400">
           {BS_SIMPLE.author}
         </span>
@@ -66,28 +72,19 @@ export function PageHeader({
 
 export function FeatureCard({
   href,
-  emoji,
+  icon,
   title,
   description,
   iconTone = "indigo",
   featured,
 }: {
   href: string;
-  emoji: string;
+  icon: BrandIconName;
   title: string;
   description: string;
-  iconTone?: "indigo" | "teal" | "violet" | "amber" | "rose" | "sky";
+  iconTone?: IconTone;
   featured?: boolean;
 }) {
-  const tones: Record<string, string> = {
-    indigo: "bs-icon-indigo",
-    teal: "bs-icon-teal",
-    violet: "bs-icon-violet",
-    amber: "bs-icon-amber",
-    rose: "bs-icon-rose",
-    sky: "bs-icon-sky",
-  };
-
   return (
     <a
       href={href}
@@ -95,7 +92,7 @@ export function FeatureCard({
         featured ? "bs-card-featured bs-shimmer" : ""
       }`}
     >
-      <div className={`bs-icon-wrap ${tones[iconTone]}`}>{emoji}</div>
+      <BrandIcon name={icon} tone={iconTone} />
       <h3 className="mt-3 font-bold text-slate-900">{title}</h3>
       <p className="mt-1 text-sm leading-snug text-slate-600">{description}</p>
     </a>
@@ -104,20 +101,22 @@ export function FeatureCard({
 
 export function ToolChip({
   href,
-  emoji,
+  icon,
   title,
+  tone = "indigo",
 }: {
   href: string;
-  emoji: string;
+  icon: BrandIconName;
   title: string;
+  tone?: IconTone;
 }) {
   return (
     <Link
       href={href}
-      className="bs-card bs-card-hover flex flex-col items-center rounded-2xl p-3 text-center"
+      className="bs-card bs-card-hover flex flex-col items-center gap-2 rounded-2xl p-3 text-center"
     >
-      <span className="text-xl">{emoji}</span>
-      <span className="mt-1.5 text-[10px] font-semibold text-slate-700">{title}</span>
+      <BrandIcon name={icon} tone={tone} size="sm" />
+      <span className="text-[10px] font-semibold text-slate-700">{title}</span>
     </Link>
   );
 }
