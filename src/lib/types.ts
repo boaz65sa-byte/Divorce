@@ -40,6 +40,7 @@ export interface KnowledgeTopic {
   content: string[];
   tags: string[];
   forSide?: "a" | "b" | "both";
+  forCourt?: CourtType | "both";
 }
 
 export type ExpenseSplitMode = "50-50" | "by-income" | "custom";

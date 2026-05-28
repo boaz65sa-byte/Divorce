@@ -7,6 +7,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "מערכת הערכאות, שלבי ההליך, ומה חשוב לדעת מההתחלה.",
     tags: ["כללי", "שני הצדדים"],
     forSide: "both",
+    forCourt: "both",
     content: [
       "גירושין של יהודים בישראל דורשים מתן גט בבית הדין הרבני — זו הסמכות הבלעדית.",
       "נושאים נלווים (משמורת, מזונות, רכוש) יכולים להידון ברבני או בבית משפט למשפחה.",
@@ -20,6 +21,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "מזונות אישה, איזון משאבים, משמורת וכתובה.",
     tags: ["אישה", "זכויות"],
     forSide: "b",
+    forCourt: "both",
     content: [
       "אישה נשואה זכאית למזונות מהבעל כל עוד הנישואין בתוקף — עד הגט.",
       "הזכות למזונות אינה רטרואקטיבית — בדרך כלל מיום הגשת התביעה.",
@@ -34,6 +36,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "מזונות, גט, חלוקת רכוש וחובות.",
     tags: ["בעל", "חובות"],
     forSide: "a",
+    forCourt: "both",
     content: [
       "הבעל חייב במזונות אישה עד הגט (בתנאים) — זה תמריץ לסיים את ההליך.",
       "חייב במזונות ילדים — עד גיל 6 החובה כמעט מוחלטת על האב.",
@@ -48,6 +51,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "הבדלים לפי גיל, 919/15, מדור והוצאות חריגות.",
     tags: ["ילדים", "מזונות"],
     forSide: "both",
+    forCourt: "family",
     content: [
       "מזונות הם זכות הילד — לא ניתן לוותר עליהם לחלוטין.",
       "עד גיל 6: חובה על האב (דין אישי) — ללא התחשבות בהכנסות האם.",
@@ -62,6 +66,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "חוק יח\"מ 1973 — מה נכנס ומה מוחרג.",
     tags: ["רכוש", "50/50"],
     forSide: "both",
+    forCourt: "both",
     content: [
       "חל על זוגות שנישאו אחרי 1.1.1974 (ללא הסכם ממון).",
       "כל צד זכאי ל-50% מנכסים שנצברו במאמץ משותף.",
@@ -76,6 +81,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "טובת הילד, משמורת משותפת, והשפעה על מזונות.",
     tags: ["ילדים", "משמורת"],
     forSide: "both",
+    forCourt: "both",
     content: [
       "עיקרון מנחה: טובת הילד — מעל כל שיקול אחר.",
       "משמורת משותפת — מגמה בבתי משפט, אך לא חובה 50/50.",
@@ -90,6 +96,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     summary: "גט, כריכת תביעות, והבדלים מבית משפט למשפחה.",
     tags: ["רבני", "גט"],
     forSide: "both",
+    forCourt: "rabbinical",
     content: [
       "רק בית הדין הרבני מוסמך להתיר נישואין יהודים (גט).",
       "ניתן לכרוך תביעות: רכוש, מזונות, משמורת — לדיון אחד.",

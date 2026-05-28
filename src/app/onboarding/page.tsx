@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Input, PageHeader, Select } from "@/components/ui";
 import { religionLabels } from "@/data/religiousCourts";
+import { markWelcomeSeen } from "@/lib/notifications/reminderNotifications";
 import { useProfileStore } from "@/lib/store/profileStore";
 import type { AgreementType, CourtType, Gender, ReligionType } from "@/lib/types";
 
@@ -20,6 +21,10 @@ export default function OnboardingPage() {
   const router = useRouter();
   const { profile, setProfile, completeOnboarding } = useProfileStore();
   const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    markWelcomeSeen();
+  }, []);
 
   const next = () => {
     if (step < steps.length - 1) {

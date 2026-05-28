@@ -2,11 +2,17 @@ import type { Metadata, Viewport } from "next";
 import { BottomNav, AppHeader } from "@/components/layout/Navigation";
 import { BsPageAccent, BsPatternBg, BsSignature } from "@/components/brand/BsSimple";
 import { RegisterServiceWorker } from "@/components/brand/RegisterServiceWorker";
+import { ReminderNotificationSync } from "@/components/brand/ReminderNotificationSync";
 import { LegalDisclaimer } from "@/components/ui";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import "./globals.css";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "תגרשן לי — מדריך וכלים לגירושין",
   description:
     "ידע משפטי, צ'ק-ליסט, מחשבוני מזונות וחלוקת הוצאות לגירושין בישראל · bs-simple · בועז סעדה",
@@ -56,6 +62,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
       <body className="min-h-screen antialiased">
         <RegisterServiceWorker />
+        <ReminderNotificationSync />
         <BsPatternBg>
           <AppHeader />
           <main className="relative mx-auto min-h-screen max-w-lg px-4 pb-28 pt-4">

@@ -4,7 +4,60 @@
 > **Design:** bs-simple · בועז סעדה
 
 **תמונת שיווק:** `/images/cover.jpeg`  
-**GitHub:** https://github.com/boaz65sa-byte/Divorce
+**GitHub:** https://github.com/boaz65sa-byte/Divorce  
+**דף נחיתה לפרסום:** `/welcome`
+
+---
+
+## תמצות / Summary
+
+### עברית
+
+| | |
+|---|---|
+| **שם** | תגרשן לי |
+| **מה זה** | אפליקציה חינמית בעברית לליווי גירושין בישראל |
+| **למי** | הורים וזוגות בתהליך גירושין |
+| **מה יש** | מפת דרכים · צ'ק-ליסט · ידע משפטי · מחשבונים · לוח משמורת · עוזר חכם |
+| **יתרון** | הכל במקום אחד — פשוט, פרטי, בעברית |
+| **מחיר** | חינם |
+| **פרטיות** | הנתונים נשמרים במכשיר שלך |
+| **חשוב** | לא ייעוץ משפטי — יש להתייעץ עם עו"ד |
+
+**משפט אחד:**  
+גירושין בישראל? **תגרשן לי** — ידע, כלים ומסלול אישי, במקום אחד.
+
+**שלוש שורות לפרסום:**
+```
+תגרשן לי — המלווה הדיגיטלי שלך לגירושין בישראל
+מזונות · משמורת · צ'ק-ליסט · מחשבונים · לוח שבתות וחגים
+חינם | בעברית | פרטי | לא ייעוץ משפטי
+```
+
+---
+
+### English
+
+| | |
+|---|---|
+| **Name** | Tagarshan Li (תגרשן לי) |
+| **What** | Free Hebrew web app for divorce in Israel |
+| **For** | Parents & couples going through divorce |
+| **Includes** | Roadmap · Checklist · Legal info · Calculators · Custody calendar · Smart assistant |
+| **Edge** | All in one place — simple, private, Hebrew-first |
+| **Price** | Free |
+| **Privacy** | Data stays on your device |
+| **Note** | Not legal advice — consult an attorney |
+
+**One-liner:**  
+Divorce in Israel? **Tagarshan Li** — knowledge, tools & your personal roadmap, in one app.
+
+**Three lines for posting:**
+```
+Tagarshan Li — your digital divorce companion in Israel
+Child support · Custody · Checklist · Calculators · Shabbat & holiday calendar
+Free | Hebrew | Private | Not legal advice
+```
 
 ---
 

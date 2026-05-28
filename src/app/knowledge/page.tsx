@@ -5,8 +5,10 @@ import { useState } from "react";
 import { Card, PageHeader } from "@/components/ui";
 import { BsSection } from "@/components/brand/BsSimple";
 import { knowledgeTopics } from "@/data/knowledge";
+import type { CourtType } from "@/lib/types";
 
 type SideFilter = "all" | "a" | "b" | "both";
+type CourtFilter = "all" | CourtType;
 
 const sideLabels: Record<SideFilter, string> = {
   all: "הכל",
@@ -15,9 +17,16 @@ const sideLabels: Record<SideFilter, string> = {
   both: "שני הצדדים",
 };
 
+const courtLabels: Record<CourtFilter, string> = {
+  all: "הכל",
+  rabbinical: "בית דין רבני",
+  family: "בית משפט למשפחה",
+};
+
 export default function KnowledgePage() {
   const [query, setQuery] = useState("");
   const [sideFilter, setSideFilter] = useState<SideFilter>("all");
+  const [courtFilter, setCourtFilter] = useState<CourtFilter>("all");
 
   const filtered = knowledgeTopics.filter((topic) => {
     const matchesQuery =
@@ -30,7 +39,13 @@ export default function KnowledgePage() {
       topic.forSide === sideFilter ||
       (sideFilter === "both" && topic.forSide === "both");
 
-    return matchesQuery && matchesSide;
+    const matchesCourt =
+      courtFilter === "all" ||
+      !topic.forCourt ||
+      topic.forCourt === "both" ||
+      topic.forCourt === courtFilter;
+
+    return matchesQuery && matchesSide && matchesCourt;
   });
 
   return (
@@ -50,7 +65,7 @@ export default function KnowledgePage() {
 
       <BsSection accent="violet" className="mb-4">
         <p className="mb-2 text-xs font-medium text-slate-600">סינון לפי צד</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="mb-3 flex flex-wrap gap-2">
           {(Object.keys(sideLabels) as SideFilter[]).map((key) => (
             <button
               key={key}
@@ -63,6 +78,23 @@ export default function KnowledgePage() {
               }`}
             >
               {sideLabels[key]}
+            </button>
+          ))}
+        </div>
+        <p className="mb-2 text-xs font-medium text-slate-600">סינון לפי ערכאה</p>
+        <div className="flex flex-wrap gap-2">
+          {(Object.keys(courtLabels) as CourtFilter[]).map((key) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setCourtFilter(key)}
+              className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+                courtFilter === key
+                  ? "bs-badge text-white"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              {courtLabels[key]}
             </button>
           ))}
         </div>
@@ -83,6 +115,11 @@ export default function KnowledgePage() {
               {topic.forSide && topic.forSide !== "both" && (
                 <span className="rounded-full bg-brand-50 px-2 py-0.5 text-xs text-brand-700">
                   {topic.forSide === "a" ? "הורה א'" : "הורה ב'"}
+                </span>
+              )}
+              {topic.forCourt && topic.forCourt !== "both" && (
+                <span className="rounded-full bg-purple-50 px-2 py-0.5 text-xs text-purple-700">
+                  {topic.forCourt === "rabbinical" ? "רבני" : "משפחה"}
                 </span>
               )}
             </div>

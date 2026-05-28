@@ -1,5 +1,5 @@
-const CACHE = "tagarshan-li-v1";
-const ASSETS = ["/", "/manifest.json"];
+const CACHE = "tagarshan-li-v2";
+const ASSETS = ["/", "/manifest.json", "/welcome"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -12,6 +12,20 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((keys) =>
       Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))),
     ).then(() => self.clients.claim()),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      for (const client of clients) {
+        if ("focus" in client) {
+          return client.focus();
+        }
+      }
+      return self.clients.openWindow("/reminders");
+    }),
   );
 });
 

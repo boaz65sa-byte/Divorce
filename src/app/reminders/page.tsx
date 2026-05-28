@@ -1,7 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input, PageHeader, Select } from "@/components/ui";
+import { BsSection } from "@/components/brand/BsSimple";
+import {
+  areNotificationsEnabled,
+  checkAndNotifyReminders,
+  getNotificationSupport,
+  requestNotificationPermission,
+  setNotificationsEnabled,
+} from "@/lib/notifications/reminderNotifications";
 import {
   getUpcomingReminders,
   useProfileStore,
@@ -32,6 +40,12 @@ export default function RemindersPage() {
   const [date, setDate] = useState("");
   const [type, setType] = useState<Reminder["type"]>("hearing");
   const [showForm, setShowForm] = useState(false);
+  const [notificationsOn, setNotificationsOn] = useState(false);
+  const notifSupport = getNotificationSupport();
+
+  useEffect(() => {
+    setNotificationsOn(areNotificationsEnabled());
+  }, []);
 
   const upcoming = getUpcomingReminders(reminders);
   const past = reminders.filter((r) => r.done || (r.date < new Date().toISOString().slice(0, 10) && !r.done));
@@ -42,6 +56,19 @@ export default function RemindersPage() {
     setTitle("");
     setDate("");
     setShowForm(false);
+    if (notificationsOn) {
+      setTimeout(() => checkAndNotifyReminders(useProfileStore.getState().reminders), 500);
+    }
+  };
+
+  const toggleNotifications = async () => {
+    if (notificationsOn) {
+      setNotificationsEnabled(false);
+      setNotificationsOn(false);
+      return;
+    }
+    const granted = await requestNotificationPermission();
+    setNotificationsOn(granted);
   };
 
   return (
@@ -50,6 +77,27 @@ export default function RemindersPage() {
         title="תזכורות"
         subtitle="מועדי דיון, תשלומים ומשימות חשובות"
       />
+
+      {notifSupport !== "unsupported" && (
+        <BsSection accent="teal" className="mb-6">
+          <p className="mb-2 text-sm text-slate-700">
+            קבל/י התראה ביום התזכורת או יום לפני (כשהאפליקציה פתוחה או מותקנת
+            כ-PWA).
+          </p>
+          <Button
+            variant={notificationsOn ? "secondary" : "primary"}
+            onClick={toggleNotifications}
+            className="w-full"
+          >
+            {notificationsOn ? "התראות פעילות ✓" : "הפעל התראות"}
+          </Button>
+          {notifSupport === "denied" && (
+            <p className="mt-2 text-xs text-red-600">
+              ההרשאה נחסמה בדפדפן — יש לאפשר בהגדרות האתר.
+            </p>
+          )}
+        </BsSection>
+      )}
 
       {upcoming.length > 0 && (
         <section className="mb-6">

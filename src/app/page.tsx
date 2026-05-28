@@ -10,6 +10,7 @@ import {
   getChecklistForProfile,
   roadmapSteps,
 } from "@/data/process";
+import { hasSeenWelcome } from "@/lib/notifications/reminderNotifications";
 import {
   getProgressPercent,
   getUpcomingReminders,
@@ -56,7 +57,10 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    if (!profile.onboardingComplete) {
+    if (profile.onboardingComplete) return;
+    if (!hasSeenWelcome()) {
+      router.replace("/welcome");
+    } else {
       router.replace("/onboarding");
     }
   }, [profile.onboardingComplete, router]);
