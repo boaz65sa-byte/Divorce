@@ -19,10 +19,25 @@ export const metadata: Metadata = {
     apple: "/icons/icon.svg",
   },
   openGraph: {
-    title: "תגרשן לי",
-    description: BS_SIMPLE.tagline,
+    title: "תגרשן לי — מדריך וכלים לגירושין בישראל",
+    description:
+      "גירושין בישראל — ידע משפטי, מחשבונים, לוח משמורת ומפת דרכים. חינם, בעברית, פרטי.",
     locale: "he_IL",
     type: "website",
+    images: [
+      {
+        url: "/images/cover.jpeg",
+        width: 1024,
+        height: 683,
+        alt: "תגרשן לי — מלווה דיגיטלי לגירושין בישראל",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "תגרשן לי",
+    description: BS_SIMPLE.tagline,
+    images: ["/images/cover.jpeg"],
   },
 };
 
