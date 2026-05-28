@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { BsBadge } from "@/components/brand/BsSimple";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import {
@@ -10,7 +11,7 @@ import {
 export function LegalDisclaimer({ compact }: { compact?: boolean }) {
   return (
     <div
-      className={`rounded-xl border border-amber-200 bg-amber-50 text-amber-900 ${
+      className={`bs-disclaimer rounded-xl text-amber-950 ${
         compact ? "px-3 py-2 text-xs" : "px-4 py-3 text-sm"
       }`}
       role="note"
@@ -34,20 +35,90 @@ export function LegalDisclaimer({ compact }: { compact?: boolean }) {
 export function PageHeader({
   title,
   subtitle,
+  gradient = true,
 }: {
   title: string;
   subtitle?: string;
+  gradient?: boolean;
 }) {
   return (
     <div className="mb-6">
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <BsBadge variant="accent">{BS_SIMPLE.name}</BsBadge>
-        <span className="text-[10px] text-slate-400">{BS_SIMPLE.author}</span>
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <BsBadge variant="accent">bs-simple</BsBadge>
+        <span className="text-[10px] font-medium tracking-wide text-slate-400">
+          {BS_SIMPLE.author}
+        </span>
       </div>
-      <h1 className="text-2xl font-bold text-slate-900">{title}</h1>
-      {subtitle && <p className="mt-2 text-slate-600">{subtitle}</p>}
-      <div className="bs-accent-line mt-4 max-w-[80px]" />
+      <h1
+        className={`text-2xl font-bold tracking-tight ${
+          gradient ? "bs-title-gradient" : "text-slate-900"
+        }`}
+      >
+        {title}
+      </h1>
+      {subtitle && (
+        <p className="mt-2 text-sm leading-relaxed text-slate-600">{subtitle}</p>
+      )}
+      <div className="bs-accent-line mt-4 max-w-[64px]" />
     </div>
+  );
+}
+
+export function FeatureCard({
+  href,
+  emoji,
+  title,
+  description,
+  iconTone = "indigo",
+  featured,
+}: {
+  href: string;
+  emoji: string;
+  title: string;
+  description: string;
+  iconTone?: "indigo" | "teal" | "violet" | "amber" | "rose" | "sky";
+  featured?: boolean;
+}) {
+  const tones: Record<string, string> = {
+    indigo: "bs-icon-indigo",
+    teal: "bs-icon-teal",
+    violet: "bs-icon-violet",
+    amber: "bs-icon-amber",
+    rose: "bs-icon-rose",
+    sky: "bs-icon-sky",
+  };
+
+  return (
+    <a
+      href={href}
+      className={`bs-card bs-card-hover block p-4 ${
+        featured ? "bs-card-featured bs-shimmer" : ""
+      }`}
+    >
+      <div className={`bs-icon-wrap ${tones[iconTone]}`}>{emoji}</div>
+      <h3 className="mt-3 font-bold text-slate-900">{title}</h3>
+      <p className="mt-1 text-sm leading-snug text-slate-600">{description}</p>
+    </a>
+  );
+}
+
+export function ToolChip({
+  href,
+  emoji,
+  title,
+}: {
+  href: string;
+  emoji: string;
+  title: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="bs-card bs-card-hover flex flex-col items-center rounded-2xl p-3 text-center"
+    >
+      <span className="text-xl">{emoji}</span>
+      <span className="mt-1.5 text-[10px] font-semibold text-slate-700">{title}</span>
+    </Link>
   );
 }
 

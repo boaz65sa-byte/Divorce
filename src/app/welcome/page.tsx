@@ -10,13 +10,22 @@ import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import { markWelcomeSeen } from "@/lib/notifications/reminderNotifications";
 
 const features = [
-  { emoji: "🗺️", title: "מפת דרכים", desc: "שלב אחר שלב עד תעודת גירושין" },
-  { emoji: "✅", title: "צ'ק-ליסט", desc: "מותאם להסכמה/מחלוקת ולערכאה" },
-  { emoji: "🧮", title: "מחשבונים", desc: "מזונות, רכוש, ביטוח לאומי" },
-  { emoji: "📅", title: "לוח משמורת", desc: "שבתות, חגים, 2-2-3" },
-  { emoji: "💬", title: "עוזר חכם", desc: "שאלות על החוק וההליך" },
-  { emoji: "⚖️", title: "מאגר ידע", desc: "זכויות וחובות לכל צד" },
+  { emoji: "🗺️", title: "מפת דרכים", desc: "שלב אחר שלב עד תעודת גירושין", tone: "teal" as const },
+  { emoji: "✅", title: "צ'ק-ליסט", desc: "מותאם להסכמה/מחלוקת ולערכאה", tone: "indigo" as const },
+  { emoji: "🧮", title: "מחשבונים", desc: "מזונות, רכוש, ביטוח לאומי", tone: "amber" as const },
+  { emoji: "📅", title: "לוח משמורת", desc: "שבתות, חגים, 2-2-3", tone: "rose" as const },
+  { emoji: "💬", title: "עוזר חכם", desc: "שאלות על החוק וההליך", tone: "violet" as const },
+  { emoji: "⚖️", title: "מאגר ידע", desc: "זכויות וחובות לכל צד", tone: "sky" as const },
 ];
+
+const toneClass: Record<(typeof features)[number]["tone"], string> = {
+  teal: "bs-icon-teal",
+  indigo: "bs-icon-indigo",
+  amber: "bs-icon-amber",
+  rose: "bs-icon-rose",
+  violet: "bs-icon-violet",
+  sky: "bs-icon-sky",
+};
 
 export default function WelcomePage() {
   const router = useRouter();
@@ -35,13 +44,13 @@ export default function WelcomePage() {
           alt="תגרשן לי"
           width={1024}
           height={683}
-          className="h-48 w-full object-cover"
+          className="h-52 w-full object-cover"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
         <div className="absolute bottom-4 right-4 left-4 text-white">
           <BsBrandMark size="md" showLabel />
-          <h1 className="mt-3 text-2xl font-bold">תגרשן לי</h1>
+          <h1 className="mt-3 text-3xl font-black tracking-tight">תגרשן לי</h1>
           <p className="mt-1 text-sm text-white/90">
             {lang === "he"
               ? "המלווה הדיגיטלי שלך לגירושין בישראל"
@@ -100,17 +109,15 @@ export default function WelcomePage() {
 
         <div className="mb-6 grid grid-cols-2 gap-2">
           {features.map((f) => (
-            <div key={f.title} className="bs-card rounded-xl p-3">
-              <span className="text-xl">{f.emoji}</span>
-              <p className="mt-1 text-sm font-semibold text-slate-900">
-                {f.title}
-              </p>
-              <p className="text-[11px] text-slate-500">{f.desc}</p>
+            <div key={f.title} className="bs-card p-3">
+              <div className={`bs-icon-wrap ${toneClass[f.tone]} mb-2`}>{f.emoji}</div>
+              <p className="text-sm font-bold text-slate-900">{f.title}</p>
+              <p className="text-[11px] leading-snug text-slate-500">{f.desc}</p>
             </div>
           ))}
         </div>
 
-        <Button onClick={start} className="mb-3 w-full">
+        <Button onClick={start} className="bs-shimmer mb-3 w-full text-base py-3">
           {lang === "he" ? "התחל/י — חינם" : "Start — it's free"}
         </Button>
 
@@ -122,7 +129,7 @@ export default function WelcomePage() {
           {lang === "he" ? "יש לי כבר פרופיל →" : "I already have a profile →"}
         </Link>
 
-        <p className="rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-900">
+        <p className="bs-disclaimer rounded-xl px-3 py-2 text-xs text-amber-950">
           {lang === "he"
             ? "⚠️ הערכה בלבד — לא ייעוץ משפטי. יש להתייעץ עם עו\"ד."
             : "⚠️ Estimates only — not legal advice. Consult an attorney."}

@@ -17,7 +17,7 @@ export function BsBrandMark({
   return (
     <div className="flex items-center gap-2">
       <div
-        className={`bs-mark flex shrink-0 items-center justify-center rounded-xl font-black text-white shadow-sm ${sizes[size]}`}
+        className={`bs-mark flex shrink-0 items-center justify-center rounded-xl font-black text-white shadow-sm ring-2 ring-white/30 ${sizes[size]}`}
         aria-hidden
       >
         bs

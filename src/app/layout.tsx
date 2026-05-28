@@ -5,6 +5,7 @@ import { RegisterServiceWorker } from "@/components/brand/RegisterServiceWorker"
 import { ReminderNotificationSync } from "@/components/brand/ReminderNotificationSync";
 import { LegalDisclaimer } from "@/components/ui";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
+import { rubik } from "@/lib/fonts";
 import "./globals.css";
 
 const siteUrl =
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2563eb",
+  themeColor: "#4338ca",
   width: "device-width",
   initialScale: 1,
 };
@@ -59,8 +60,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl">
-      <body className="min-h-screen antialiased">
+    <html lang="he" dir="rtl" className={rubik.variable}>
+      <body className={`${rubik.className} min-h-screen antialiased`}>
         <RegisterServiceWorker />
         <ReminderNotificationSync />
         <BsPatternBg>
