@@ -3,17 +3,35 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Card, PageHeader } from "@/components/ui";
+import { BsSection } from "@/components/brand/BsSimple";
 import { knowledgeTopics } from "@/data/knowledge";
+
+type SideFilter = "all" | "a" | "b" | "both";
+
+const sideLabels: Record<SideFilter, string> = {
+  all: "הכל",
+  a: "הורה א'",
+  b: "הורה ב'",
+  both: "שני הצדדים",
+};
 
 export default function KnowledgePage() {
   const [query, setQuery] = useState("");
+  const [sideFilter, setSideFilter] = useState<SideFilter>("all");
 
-  const filtered = knowledgeTopics.filter(
-    (topic) =>
+  const filtered = knowledgeTopics.filter((topic) => {
+    const matchesQuery =
       topic.title.includes(query) ||
       topic.summary.includes(query) ||
-      topic.tags.some((tag) => tag.includes(query)),
-  );
+      topic.tags.some((tag) => tag.includes(query));
+
+    const matchesSide =
+      sideFilter === "all" ||
+      topic.forSide === sideFilter ||
+      (sideFilter === "both" && topic.forSide === "both");
+
+    return matchesQuery && matchesSide;
+  });
 
   return (
     <div>
@@ -27,8 +45,28 @@ export default function KnowledgePage() {
         placeholder="חיפוש נושא..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="mb-4 w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+        className="bs-input mb-3 w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none"
       />
+
+      <BsSection accent="violet" className="mb-4">
+        <p className="mb-2 text-xs font-medium text-slate-600">סינון לפי צד</p>
+        <div className="flex flex-wrap gap-2">
+          {(Object.keys(sideLabels) as SideFilter[]).map((key) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setSideFilter(key)}
+              className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+                sideFilter === key
+                  ? "bs-badge text-white"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              {sideLabels[key]}
+            </button>
+          ))}
+        </div>
+      </BsSection>
 
       <div className="space-y-3">
         {filtered.map((topic) => (
@@ -42,6 +80,11 @@ export default function KnowledgePage() {
                   {tag}
                 </span>
               ))}
+              {topic.forSide && topic.forSide !== "both" && (
+                <span className="rounded-full bg-brand-50 px-2 py-0.5 text-xs text-brand-700">
+                  {topic.forSide === "a" ? "הורה א'" : "הורה ב'"}
+                </span>
+              )}
             </div>
             <h2 className="mt-2 font-semibold text-slate-900">{topic.title}</h2>
             <p className="mt-1 text-sm text-slate-600">{topic.summary}</p>

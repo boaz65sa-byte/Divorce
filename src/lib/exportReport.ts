@@ -1,3 +1,5 @@
+import { BS_SIMPLE } from "@/lib/brand/bsSimple";
+
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("he-IL", {
     style: "currency",
@@ -19,6 +21,7 @@ export function buildReportText(
   const date = new Date().toLocaleDateString("he-IL");
   const parts = [
     "תגרשן לי — דוח הערכה",
+    BS_SIMPLE.signature,
     title,
     `תאריך: ${date}`,
     "",
@@ -31,6 +34,8 @@ export function buildReportText(
     disclaimer,
     "",
     "מסמך זה אינו מהווה ייעוץ משפטי.",
+    "",
+    `── ${BS_SIMPLE.signature} ──`,
   ];
 
   return parts.join("\n");
@@ -60,6 +65,8 @@ export function printReport(title: string, sections: ReportSection[], disclaimer
     h2 { font-size: 16px; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
     p { margin: 6px 0; line-height: 1.5; }
     .disclaimer { margin-top: 24px; padding: 12px; background: #fffbeb; border: 1px solid #fcd34d; font-size: 12px; }
+    .brand { margin-top: 32px; padding-top: 12px; border-top: 2px solid #e2e8f0; font-size: 11px; color: #64748b; text-align: center; }
+    .brand-line { height: 3px; width: 80px; margin: 0 auto 8px; background: linear-gradient(90deg, #2563eb, #0891b2, #7c3aed); border-radius: 999px; }
   </style>
 </head>
 <body>
@@ -74,6 +81,11 @@ export function printReport(title: string, sections: ReportSection[], disclaimer
     )
     .join("")}
   <div class="disclaimer">${disclaimer}</div>
+  <div class="brand">
+    <div class="brand-line"></div>
+    <p>${BS_SIMPLE.signature}</p>
+    <p>${BS_SIMPLE.tagline}</p>
+  </div>
 </body>
 </html>`;
 

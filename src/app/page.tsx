@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Card, PageHeader, ProgressBar } from "@/components/ui";
-import { checklistTemplates, roadmapSteps } from "@/data/process";
+import { BsSection } from "@/components/brand/BsSimple";
+import { BS_SIMPLE } from "@/lib/brand/bsSimple";
+import {
+  getChecklistForProfile,
+  roadmapSteps,
+} from "@/data/process";
 import {
   getProgressPercent,
   getUpcomingReminders,
@@ -41,9 +46,10 @@ export default function HomePage() {
     completedRoadmap,
     roadmapSteps.length,
   );
+  const checklistItems = getChecklistForProfile(profile);
   const checklistProgress = getProgressPercent(
     completedChecklist,
-    checklistTemplates.length,
+    checklistItems.length,
   );
   const overallProgress = Math.round(
     (roadmapProgress + checklistProgress) / 2,
@@ -63,7 +69,7 @@ export default function HomePage() {
     <div>
       <PageHeader
         title="שלום, ברוכים הבאים"
-        subtitle="מלווה דיגיטלי לגירושין — גרסה 3"
+        subtitle={`${BS_SIMPLE.tagline} · ${BS_SIMPLE.signature}`}
       />
 
       {upcoming.length > 0 && (
@@ -94,9 +100,8 @@ export default function HomePage() {
         </Card>
       )}
 
-      <section className="mb-8 rounded-2xl border border-slate-200 bg-white p-5">
+      <BsSection title="התקדמות בהליך" accent="blue" className="mb-8">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="font-semibold text-slate-900">התקדמות בהליך</h2>
           <span className="text-sm font-bold text-brand-700">
             {overallProgress}%
           </span>
@@ -111,16 +116,16 @@ export default function HomePage() {
           </p>
         )}
         <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-          <div className="rounded-xl bg-slate-50 p-3">
+          <div className="bs-card rounded-xl p-3">
             <p className="text-slate-500">מסלול</p>
             <p className="font-semibold">{roadmapProgress}%</p>
           </div>
-          <Link href="/checklist" className="rounded-xl bg-slate-50 p-3">
+          <Link href="/checklist" className="bs-card bs-card-hover rounded-xl p-3">
             <p className="text-slate-500">צ'ק-ליסט</p>
             <p className="font-semibold">{checklistProgress}%</p>
           </Link>
         </div>
-      </section>
+      </BsSection>
 
       <div className="grid grid-cols-2 gap-3">
         {quickActions.map((action) => (

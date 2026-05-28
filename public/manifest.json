@@ -1,11 +1,25 @@
 {
-  "name": "תגרשן לי",
+  "name": "תגרשן לי — bs-simple",
   "short_name": "תגרשן לי",
-  "description": "מדריך וכלים לגירושין בישראל",
+  "description": "מדריך וכלים לגירושין בישראל · bs-simple · בועז סעדה",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#2563eb",
   "lang": "he",
-  "dir": "rtl"
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
 }

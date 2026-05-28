@@ -1,7 +1,11 @@
 "use client";
 
 import { PageHeader, ProgressBar } from "@/components/ui";
-import { checklistTemplates } from "@/data/process";
+import { BsSection } from "@/components/brand/BsSimple";
+import {
+  getChecklistForProfile,
+  getSuggestedDueDate,
+} from "@/data/process";
 import {
   getProgressPercent,
   useProfileStore,
@@ -15,32 +19,33 @@ const phaseLabels: Record<string, string> = {
 };
 
 export default function ChecklistPage() {
+  const profile = useProfileStore((s) => s.profile);
   const completedChecklist = useProfileStore((s) => s.completedChecklist);
   const toggleChecklistItem = useProfileStore((s) => s.toggleChecklistItem);
 
-  const progress = getProgressPercent(
-    completedChecklist,
-    checklistTemplates.length,
-  );
-
-  const phases = [...new Set(checklistTemplates.map((item) => item.phase))];
+  const items = getChecklistForProfile(profile);
+  const progress = getProgressPercent(completedChecklist, items.length);
+  const phases = [...new Set(items.map((item) => item.phase))];
+  const baseDate = new Date().toISOString().slice(0, 10);
 
   return (
     <div>
       <PageHeader
         title="צ'ק-ליסט"
-        subtitle="מסמכים ומשימות — לפני, במהלך ואחרי ההליך"
+        subtitle={`מותאם ל${profile.agreement === "consensus" ? "גירושין בהסכמה" : "הליך עם מחלוקות"} · ${
+          profile.court === "rabbinical" ? "בית דין דתי" : "בית משפט למשפחה"
+        }`}
       />
 
-      <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-5">
+      <BsSection accent="teal" className="mb-6">
         <div className="mb-2 flex justify-between text-sm">
           <span className="text-slate-600">הושלם</span>
           <span className="font-bold text-brand-700">
-            {completedChecklist.length} / {checklistTemplates.length}
+            {completedChecklist.filter((id) => items.some((i) => i.id === id)).length} / {items.length}
           </span>
         </div>
         <ProgressBar percent={progress} />
-      </div>
+      </BsSection>
 
       {phases.map((phase) => (
         <section key={phase} className="mb-8">
@@ -48,19 +53,25 @@ export default function ChecklistPage() {
             {phaseLabels[phase] ?? phase}
           </h2>
           <ul className="space-y-2">
-            {checklistTemplates
+            {items
               .filter((item) => item.phase === phase)
               .map((item) => {
                 const done = completedChecklist.includes(item.id);
+                const due = getSuggestedDueDate(baseDate, item.suggestedDueDays);
+                const overdue =
+                  due && !done && due < new Date().toISOString().slice(0, 10);
+
                 return (
                   <li key={item.id}>
                     <button
                       type="button"
                       onClick={() => toggleChecklistItem(item.id)}
-                      className={`flex w-full items-start gap-3 rounded-xl border p-4 text-right transition ${
+                      className={`bs-card bs-card-hover flex w-full items-start gap-3 p-4 text-right transition ${
                         done
-                          ? "border-green-200 bg-green-50"
-                          : "border-slate-200 bg-white hover:border-brand-300"
+                          ? "border-green-200 bg-green-50/90"
+                          : overdue
+                            ? "border-orange-200 bg-orange-50/90"
+                            : ""
                       }`}
                     >
                       <span
@@ -72,13 +83,23 @@ export default function ChecklistPage() {
                       >
                         {done ? "✓" : ""}
                       </span>
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <p className="font-medium text-slate-900">
                           {item.title}
                         </p>
                         {item.description && (
                           <p className="mt-1 text-sm text-slate-600">
                             {item.description}
+                          </p>
+                        )}
+                        {due && (
+                          <p
+                            className={`mt-1 text-xs ${
+                              overdue ? "font-semibold text-orange-700" : "text-slate-500"
+                            }`}
+                          >
+                            יעד מוצע:{" "}
+                            {new Date(due + "T12:00:00").toLocaleDateString("he-IL")}
                           </p>
                         )}
                       </div>

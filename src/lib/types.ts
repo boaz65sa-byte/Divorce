@@ -28,6 +28,9 @@ export interface ChecklistItem {
   title: string;
   description?: string;
   phase: string;
+  forAgreement?: AgreementType | "both";
+  forCourt?: CourtType | "both";
+  suggestedDueDays?: number;
 }
 
 export interface KnowledgeTopic {

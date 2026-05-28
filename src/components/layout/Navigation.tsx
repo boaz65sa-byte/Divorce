@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BsBrandMark } from "@/components/brand/BsSimple";
 import {
   getUpcomingReminders,
   useProfileStore,
@@ -21,7 +22,8 @@ export function BottomNav() {
   if (pathname === "/onboarding") return null;
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 backdrop-blur">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200/90 bg-white/95 backdrop-blur-md">
+      <div className="bs-accent-line absolute inset-x-0 top-0 h-0.5 opacity-50" />
       <div className="mx-auto flex max-w-lg items-stretch justify-around px-1 py-2">
         {navItems.map((item) => {
           const active =
@@ -56,10 +58,12 @@ export function AppHeader() {
   const upcomingCount = getUpcomingReminders(reminders).length;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200/90 bg-white/95 backdrop-blur-md">
+      <div className="bs-accent-line absolute inset-x-0 bottom-0 h-0.5 opacity-40" />
       <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-bold text-brand-700">
-          תגרשן לי
+        <Link href="/" className="flex items-center gap-2">
+          <BsBrandMark size="sm" />
+          <span className="text-lg font-bold text-brand-700">תגרשן לי</span>
         </Link>
         <div className="flex items-center gap-3">
           <Link
