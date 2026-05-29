@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Input, PageHeader, Select } from "@/components/ui";
+import { ChildrenEditor } from "@/components/ChildrenEditor";
 import { religionLabels } from "@/data/religiousCourts";
 import { markWelcomeSeen } from "@/lib/notifications/reminderNotifications";
 import { useProfileStore } from "@/lib/store/profileStore";
@@ -100,15 +101,17 @@ export default function OnboardingPage() {
                 setProfile({
                   hasChildren: v === "yes",
                   children:
-                    v === "yes" && profile.children.length === 0
-                      ? [
-                          {
-                            id: crypto.randomUUID(),
-                            age: 8,
-                            daysWithParentA: 7,
-                          },
-                        ]
-                      : profile.children,
+                    v === "yes"
+                      ? profile.children.length === 0
+                        ? [
+                            {
+                              id: crypto.randomUUID(),
+                              age: 8,
+                              daysWithParentA: 7,
+                            },
+                          ]
+                        : profile.children
+                      : [],
                 })
               }
               options={[
@@ -137,6 +140,18 @@ export default function OnboardingPage() {
               value={profile.parentBName}
               onChange={(v) => setProfile({ parentBName: v })}
             />
+            {profile.hasChildren && (
+              <div>
+                <p className="mb-3 text-sm font-medium text-slate-700">
+                  פרטי ילדים (גיל משפיע על חישוב מזונות ומשך התשלום)
+                </p>
+                <ChildrenEditor
+                  children={profile.children}
+                  onChange={(children) => setProfile({ children })}
+                  parentAName={profile.parentAName}
+                />
+              </div>
+            )}
           </div>
         )}
 
@@ -183,7 +198,10 @@ export default function OnboardingPage() {
               <strong>דת/עדה:</strong> {religionLabels[profile.religion]}
             </p>
             <p>
-              <strong>ילדים:</strong> {profile.hasChildren ? "כן" : "לא"}
+              <strong>ילדים:</strong>{" "}
+              {profile.hasChildren
+                ? `${profile.children.length} — גילאים: ${profile.children.map((c) => c.age).join(", ")}`
+                : "לא"}
             </p>
             <p>
               <strong>הליך:</strong>{" "}

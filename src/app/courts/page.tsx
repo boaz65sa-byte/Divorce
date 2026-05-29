@@ -70,6 +70,12 @@ export default function CourtsPage() {
       <h2 className="mb-3 mt-8 font-semibold text-slate-900">
         יהודים — רבני vs משפחה
       </h2>
+      <Link
+        href="/compare"
+        className="mb-3 inline-block text-sm font-medium text-brand-700 hover:underline"
+      >
+        השוואה אינטראקטיבית מלאה →
+      </Link>
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
         <table className="w-full text-sm">
           <thead>

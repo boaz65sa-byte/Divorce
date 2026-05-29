@@ -23,6 +23,15 @@ export interface ChildBreakdown {
   transferFromAToB: number;
 }
 
+export interface ChildSupportDuration {
+  age: number;
+  monthsRemaining: number;
+  yearsRemaining: number;
+  endsAtAge: number;
+  monthlyShare: number;
+  estimatedRemainingTotal: number;
+}
+
 export interface ChildSupportResult {
   under6Total: number;
   over6Transfer: number;
@@ -31,10 +40,68 @@ export interface ChildSupportResult {
   direction: "a-to-b" | "b-to-a" | "none";
   amount: number;
   breakdown: ChildBreakdown[];
+  durations: ChildSupportDuration[];
+  longestRemainingMonths: number;
+  totalEstimatedRemaining: number;
   disclaimer: string;
 }
 
+/** גיל סיום מזונות ילדים — ברירת מחדל (ניתן להאריך בנסיבות מיוחדות) */
+export const CHILD_SUPPORT_END_AGE = 18;
+
 const DEFAULT_NEEDS = 2250;
+
+export function calcMonthsUntilSupportEnd(age: number, endAge = CHILD_SUPPORT_END_AGE): number {
+  if (age >= endAge) return 0;
+  return Math.max(0, Math.round((endAge - age) * 12));
+}
+
+export function formatSupportDuration(monthsRemaining: number): string {
+  if (monthsRemaining <= 0) return "מסתיים בקרוב / הסתיים";
+  const years = Math.floor(monthsRemaining / 12);
+  const months = monthsRemaining % 12;
+  if (years === 0) return `${months} חודשים`;
+  if (months === 0) return `${years} שנים`;
+  return `${years} שנים ו-${months} חודשים`;
+}
+
+function buildDurations(
+  breakdown: ChildBreakdown[],
+  monthlyTotal: number,
+): Pick<ChildSupportResult, "durations" | "longestRemainingMonths" | "totalEstimatedRemaining"> {
+  const breakdownTotal = breakdown.reduce(
+    (sum, row) => sum + Math.abs(row.transferFromAToB),
+    0,
+  );
+
+  const durations: ChildSupportDuration[] = breakdown.map((row) => {
+    const monthsRemaining = calcMonthsUntilSupportEnd(row.age);
+    const monthlyShare =
+      breakdownTotal > 0
+        ? monthlyTotal * (Math.abs(row.transferFromAToB) / breakdownTotal)
+        : monthlyTotal / Math.max(breakdown.length, 1);
+
+    return {
+      age: row.age,
+      monthsRemaining,
+      yearsRemaining: Math.round((monthsRemaining / 12) * 10) / 10,
+      endsAtAge: CHILD_SUPPORT_END_AGE,
+      monthlyShare: Math.round(monthlyShare),
+      estimatedRemainingTotal: Math.round(monthlyShare * monthsRemaining),
+    };
+  });
+
+  const longestRemainingMonths = durations.reduce(
+    (max, row) => Math.max(max, row.monthsRemaining),
+    0,
+  );
+  const totalEstimatedRemaining = durations.reduce(
+    (sum, row) => sum + row.estimatedRemainingTotal,
+    0,
+  );
+
+  return { durations, longestRemainingMonths, totalEstimatedRemaining };
+}
 
 function calc919Transfer(
   needs: number,
@@ -125,17 +192,20 @@ export function calcChildSupport(input: ChildSupportInput): ChildSupportResult {
   const net = under6Total + over6Transfer + housingTransfer;
   const direction =
     net > 0 ? "a-to-b" : net < 0 ? "b-to-a" : ("none" as const);
+  const amount = Math.abs(net);
+  const durationMeta = buildDurations(breakdown, amount);
 
   return {
     under6Total,
     over6Transfer,
     housingTransfer,
-    totalMonthly: Math.abs(net),
+    totalMonthly: amount,
     direction,
-    amount: Math.abs(net),
+    amount,
     breakdown,
+    ...durationMeta,
     disclaimer:
-      "הערכה בלבד — לא ייעוץ משפטי. כל מקרה נבחן לגופו בערכאה המוסמכת.",
+      "הערכה בלבד — לא ייעוץ משפטי. מזונות לרוב עד גיל 18 (ייתכנו חריגים). כל מקרה נבחן לגופו בערכאה המוסמכת.",
   };
 }
 

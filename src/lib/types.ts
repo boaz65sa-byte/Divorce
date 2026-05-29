@@ -118,6 +118,7 @@ export interface ShareCalcPayload {
   housingCost: number;
   childAge: number;
   daysWithA: number;
+  children?: { age: number; daysWithParentA: number }[];
   court: CourtType;
 }
 

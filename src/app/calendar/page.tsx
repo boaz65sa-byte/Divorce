@@ -201,8 +201,13 @@ export default function CalendarPage() {
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <Button onClick={handleSync} variant="secondary" className="text-sm">
-            עדכן פרופיל ילדים
+            עדכן לילות בפרופיל
           </Button>
+          <Link href="/settings">
+            <Button variant="secondary" className="text-sm">
+              ערוך גילאי ילדים
+            </Button>
+          </Link>
           <Link href="/calculators/child-support">
             <Button variant="secondary" className="text-sm">
               למחשבון מזונות

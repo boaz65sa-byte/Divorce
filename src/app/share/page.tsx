@@ -4,7 +4,10 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo } from "react";
 import Link from "next/link";
 import { PageHeader, StatBox } from "@/components/ui";
-import { calcChildSupport } from "@/lib/calc/childSupport";
+import {
+  calcChildSupport,
+  formatSupportDuration,
+} from "@/lib/calc/childSupport";
 import { formatCurrency } from "@/lib/exportReport";
 import { buildQrUrl, decodeSharePayload } from "@/lib/shareCalc";
 import { useProfileStore } from "@/lib/store/profileStore";
@@ -21,10 +24,12 @@ function ShareContent() {
 
   const result = useMemo(() => {
     if (!payload) return null;
+    const children =
+      payload.children && payload.children.length > 0
+        ? payload.children
+        : [{ age: payload.childAge, daysWithParentA: payload.daysWithA }];
     return calcChildSupport({
-      children: [
-        { age: payload.childAge, daysWithParentA: payload.daysWithA },
-      ],
+      children,
       incomeA: payload.incomeA,
       incomeB: payload.incomeB,
       housingCost: payload.housingCost,
@@ -69,8 +74,18 @@ function ShareContent() {
       </div>
 
       <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-        <p>גיל ילד/ה: {payload.childAge}</p>
-        <p>לילות אצל הורה א': {payload.daysWithA}/14</p>
+        {(payload.children && payload.children.length > 0
+          ? payload.children
+          : [{ age: payload.childAge, daysWithParentA: payload.daysWithA }]
+        ).map((child, i) => (
+          <p key={i}>
+            ילד/ה {i + 1}: גיל {child.age}, {child.daysWithParentA}/14 לילות
+          </p>
+        ))}
+        <p className="mt-2">
+          משך תשלום (הילד האחרון):{" "}
+          {formatSupportDuration(result.longestRemainingMonths)}
+        </p>
         <p>הכנסה א': {formatCurrency(payload.incomeA)}</p>
         <p>הכנסה ב': {formatCurrency(payload.incomeB)}</p>
         <p>מדור: {formatCurrency(payload.housingCost)}</p>

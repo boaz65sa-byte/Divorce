@@ -100,7 +100,7 @@ export function AppHeader() {
             )}
           </Link>
           <Link
-            href="/onboarding"
+            href="/settings"
             className="mr-1 rounded-xl bg-slate-100 px-2.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-indigo-50 hover:text-brand-700"
           >
             פרופיל
