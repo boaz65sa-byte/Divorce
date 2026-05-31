@@ -72,6 +72,7 @@ const extraTools: { href: string; title: string; icon: BrandIconName; tone: Icon
   { href: "/agreement", title: "הסכם", icon: "agreement", tone: "amber" },
   { href: "/resources", title: "קישורים", icon: "resources", tone: "teal" },
   { href: "/settings", title: "פרופיל", icon: "agreement", tone: "indigo" },
+  { href: "/feedback", title: "משוב", icon: "assistant", tone: "violet" },
 ];
 
 export default function HomePage() {

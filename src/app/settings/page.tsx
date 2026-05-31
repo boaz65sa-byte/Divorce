@@ -184,6 +184,9 @@ export default function SettingsPage() {
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
           <p className="font-medium text-slate-800">פעולות נוספות</p>
           <div className="mt-3 flex flex-col gap-2">
+            <Link href="/feedback" className="text-brand-700 hover:underline">
+              שליחת משוב / בטא
+            </Link>
             <Link href="/onboarding" className="text-brand-700 hover:underline">
               עבור/י שוב את האונבורדינג המלא
             </Link>

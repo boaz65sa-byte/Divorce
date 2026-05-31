@@ -10,6 +10,8 @@ import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import {
   buildReportText,
+  downloadHtmlReport,
+  downloadPdfReport,
   downloadTextFile,
   printReport,
 } from "@/lib/exportReport";
@@ -295,8 +297,20 @@ export function ExportButtons({
     downloadTextFile(filename, text);
   };
 
+  const handleHtml = () => {
+    downloadHtmlReport(filename, title, sections, disclaimer);
+  };
+
   const handlePrint = () => {
     printReport(title, sections, disclaimer);
+  };
+
+  const handlePdf = async () => {
+    try {
+      await downloadPdfReport(filename, title, sections, disclaimer);
+    } catch {
+      printReport(title, sections, disclaimer);
+    }
   };
 
   return (
@@ -304,8 +318,14 @@ export function ExportButtons({
       <Button variant="secondary" onClick={handleDownload}>
         הורדת TXT
       </Button>
+      <Button variant="secondary" onClick={handleHtml}>
+        הורדת HTML
+      </Button>
+      <Button variant="secondary" onClick={handlePdf}>
+        הורדת PDF
+      </Button>
       <Button variant="secondary" onClick={handlePrint}>
-        הדפסה / PDF
+        הדפסה
       </Button>
     </div>
   );

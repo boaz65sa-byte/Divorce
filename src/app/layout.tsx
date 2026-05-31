@@ -62,11 +62,18 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl" className={rubik.variable}>
       <body className={`${rubik.className} min-h-screen antialiased`}>
+        <a href="#main-content" className="skip-link">
+          דלג לתוכן הראשי
+        </a>
         <RegisterServiceWorker />
         <ReminderNotificationSync />
         <BsPatternBg>
           <AppHeader />
-          <main className="relative mx-auto min-h-screen max-w-lg px-4 pb-28 pt-4">
+          <main
+            id="main-content"
+            className="relative mx-auto min-h-screen max-w-lg px-4 pb-28 pt-4"
+            tabIndex={-1}
+          >
             <BsPageAccent />
             <div className="relative">{children}</div>
             <div className="relative mt-8">

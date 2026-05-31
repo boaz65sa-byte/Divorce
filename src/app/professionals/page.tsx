@@ -35,7 +35,10 @@ export default function ProfessionalsPage() {
 
       <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
         הרשימה להמחשה בלבד. לפני פנייה — ודא/י רישוי, ניסיון והמלצות.
-        האפליקציה אינה אחראית על איכות השירות.
+        האפליקציה אינה אחראית על איכות השירות.{" "}
+        <a href="/feedback" className="font-semibold underline">
+          רוצה להופיע ברשימה? שלח/י משוב
+        </a>
       </div>
 
       <input

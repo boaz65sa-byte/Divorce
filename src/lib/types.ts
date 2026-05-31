@@ -43,7 +43,11 @@ export interface KnowledgeTopic {
   forCourt?: CourtType | "both";
 }
 
-export type ExpenseSplitMode = "50-50" | "by-income" | "custom";
+export type ExpenseSplitMode =
+  | "50-50"
+  | "by-income"
+  | "custom"
+  | "by-children";
 
 export interface ExpenseItem {
   id: string;
@@ -52,6 +56,18 @@ export interface ExpenseItem {
   split: ExpenseSplitMode;
   percentA?: number;
   percentB?: number;
+  /** אחוזים לכל ילד (במצב by-children) */
+  childPercents?: number[];
+}
+
+export interface FeedbackEntry {
+  id: string;
+  rating: number;
+  category: string;
+  message: string;
+  email?: string;
+  page?: string;
+  createdAt: string;
 }
 
 export interface AssetItem {

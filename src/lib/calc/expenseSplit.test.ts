@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { calcAllExpenses, splitExpense } from "./expenseSplit";
+import {
+  calcAllExpenses,
+  defaultChildPercents,
+  splitExpense,
+} from "./expenseSplit";
 
 describe("splitExpense", () => {
   it("splits 50-50", () => {
@@ -10,6 +14,7 @@ describe("splitExpense", () => {
     );
     expect(result.parentA).toBe(500);
     expect(result.parentB).toBe(500);
+    expect(result.perChild).toEqual([]);
   });
 
   it("splits by income ratio", () => {
@@ -38,6 +43,26 @@ describe("splitExpense", () => {
     expect(result.parentA).toBe(540);
     expect(result.parentB).toBe(360);
   });
+
+  it("splits by children per PLAN example", () => {
+    const result = splitExpense(
+      {
+        id: "1",
+        name: "קייטנה",
+        amount: 600,
+        split: "by-children",
+        percentA: 40,
+        percentB: 40,
+        childPercents: [10, 10],
+      },
+      12000,
+      8000,
+      2,
+    );
+    expect(result.parentA).toBe(240);
+    expect(result.parentB).toBe(240);
+    expect(result.perChild).toEqual([60, 60]);
+  });
 });
 
 describe("calcAllExpenses", () => {
@@ -52,5 +77,31 @@ describe("calcAllExpenses", () => {
     );
     expect(totalA).toBe(250);
     expect(totalB).toBe(250);
+  });
+
+  it("aggregates per-child totals", () => {
+    const { totalPerChild } = calcAllExpenses(
+      [
+        {
+          id: "1",
+          name: "camp",
+          amount: 600,
+          split: "by-children",
+          percentA: 40,
+          percentB: 40,
+          childPercents: [10, 10],
+        },
+      ],
+      10000,
+      10000,
+      2,
+    );
+    expect(totalPerChild).toEqual([60, 60]);
+  });
+});
+
+describe("defaultChildPercents", () => {
+  it("returns even split for two children", () => {
+    expect(defaultChildPercents(2)).toEqual([10, 10]);
   });
 });
