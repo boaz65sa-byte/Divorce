@@ -17,6 +17,7 @@ import {
   formatSupportDuration,
 } from "@/lib/calc/childSupport";
 import { buildShareUrl } from "@/lib/shareCalc";
+import { trackFeature } from "@/lib/analytics/client";
 import { useProfileStore } from "@/lib/store/profileStore";
 import type { ChildProfile, CourtType } from "@/lib/types";
 
@@ -75,6 +76,7 @@ export default function ChildSupportCalculatorPage() {
         : "אין תשלום נטו";
 
   const handleCalculate = () => {
+    trackFeature("calculator_child_support");
     setProfile({
       hasChildren: children.length > 0,
       children,

@@ -3,6 +3,7 @@ import { BottomNav, AppHeader } from "@/components/layout/Navigation";
 import { BsPageAccent, BsPatternBg, BsSignature } from "@/components/brand/BsSimple";
 import { RegisterServiceWorker } from "@/components/brand/RegisterServiceWorker";
 import { ReminderNotificationSync } from "@/components/brand/ReminderNotificationSync";
+import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 import { LegalDisclaimer } from "@/components/ui";
 import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
@@ -67,6 +68,7 @@ export default function RootLayout({
         </a>
         <RegisterServiceWorker />
         <ReminderNotificationSync />
+        <AnalyticsTracker />
         <BsPatternBg>
           <AppHeader />
           <main

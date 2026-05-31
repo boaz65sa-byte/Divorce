@@ -6,6 +6,7 @@ import { Button, Input, PageHeader, Select } from "@/components/ui";
 import { ChildrenEditor } from "@/components/ChildrenEditor";
 import { religionLabels } from "@/data/religiousCourts";
 import { markWelcomeSeen } from "@/lib/notifications/reminderNotifications";
+import { trackFeature } from "@/lib/analytics/client";
 import { useProfileStore } from "@/lib/store/profileStore";
 import type { AgreementType, CourtType, Gender, ReligionType } from "@/lib/types";
 
@@ -31,6 +32,7 @@ export default function OnboardingPage() {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
+      trackFeature("onboarding_complete");
       completeOnboarding();
       router.push("/");
     }

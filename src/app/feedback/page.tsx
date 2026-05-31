@@ -9,6 +9,7 @@ import {
   getFeedbackEntries,
   saveFeedbackEntry,
 } from "@/lib/feedback/feedbackStore";
+import { trackFeature } from "@/lib/analytics/client";
 
 const categories = [
   { value: "bug", label: "באג / תקלה" },
@@ -42,6 +43,8 @@ export default function FeedbackPage() {
       email: email.trim() || undefined,
       page: pathname,
     });
+
+    trackFeature("feedback_submit");
 
     setSubmitted(true);
     setSavedEntryId(entry.id);

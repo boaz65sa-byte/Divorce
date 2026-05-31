@@ -21,7 +21,7 @@ const navItems: { href: string; label: string; icon: BrandIconName }[] = [
 export function BottomNav() {
   const pathname = usePathname();
 
-  if (pathname === "/onboarding" || pathname === "/welcome") return null;
+  if (pathname === "/onboarding" || pathname === "/welcome" || pathname.startsWith("/admin")) return null;
 
   return (
     <nav className="bs-glass-nav fixed inset-x-0 bottom-0 z-50">
