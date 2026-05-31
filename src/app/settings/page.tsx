@@ -187,6 +187,9 @@ export default function SettingsPage() {
             <Link href="/feedback" className="text-brand-700 hover:underline">
               שליחת משוב / בטא
             </Link>
+            <Link href="/share-app" className="text-brand-700 hover:underline">
+              שיתוף ברשתות חברתיות
+            </Link>
             <Link href="/onboarding" className="text-brand-700 hover:underline">
               עבור/י שוב את האונבורדינג המלא
             </Link>

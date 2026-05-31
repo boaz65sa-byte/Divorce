@@ -10,6 +10,7 @@ import {
   ToolChip,
 } from "@/components/ui";
 import { BsSection } from "@/components/brand/BsSimple";
+import { SocialShareButtons } from "@/components/share/SocialShareButtons";
 import { BRAND } from "@/lib/brand/brand";
 import {
   getChecklistForProfile,
@@ -73,6 +74,7 @@ const extraTools: { href: string; title: string; icon: BrandIconName; tone: Icon
   { href: "/resources", title: "קישורים", icon: "resources", tone: "teal" },
   { href: "/settings", title: "פרופיל", icon: "agreement", tone: "indigo" },
   { href: "/feedback", title: "משוב", icon: "assistant", tone: "violet" },
+  { href: "/share-app", title: "שיתוף", icon: "resources", tone: "teal" },
 ];
 
 export default function HomePage() {
@@ -180,6 +182,10 @@ export default function HomePage() {
         {quickActions.map((action) => (
           <FeatureCard key={action.href} {...action} />
         ))}
+      </div>
+
+      <div className="mt-8">
+        <SocialShareButtons lang="he" />
       </div>
 
       <h2 className="mb-3 mt-8 text-sm font-bold tracking-wide text-slate-500">

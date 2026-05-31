@@ -9,6 +9,7 @@ import { BrandIcon, type IconTone } from "@/components/brand/BrandIcons";
 import type { BrandIconName } from "@/components/brand/BrandIcons";
 import { BsSection } from "@/components/brand/BsSimple";
 import { Button } from "@/components/ui";
+import { SocialShareButtons } from "@/components/share/SocialShareButtons";
 import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import { markWelcomeSeen } from "@/lib/notifications/reminderNotifications";
@@ -124,6 +125,10 @@ export default function WelcomePage() {
         >
           {lang === "he" ? "יש לי כבר פרופיל →" : "I already have a profile →"}
         </Link>
+
+        <div className="mb-4">
+          <SocialShareButtons lang={lang} compact />
+        </div>
 
         <p className="bs-disclaimer rounded-xl px-3 py-2 text-xs text-amber-950">
           {lang === "he"
