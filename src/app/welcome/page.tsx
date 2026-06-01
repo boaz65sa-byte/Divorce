@@ -9,7 +9,6 @@ import { BrandIcon, type IconTone } from "@/components/brand/BrandIcons";
 import type { BrandIconName } from "@/components/brand/BrandIcons";
 import { BsSection } from "@/components/brand/BsSimple";
 import { Button } from "@/components/ui";
-import { SocialShareButtons } from "@/components/share/SocialShareButtons";
 import { BRAND } from "@/lib/brand/brand";
 import { BS_SIMPLE } from "@/lib/brand/bsSimple";
 import { markWelcomeSeen } from "@/lib/notifications/reminderNotifications";
@@ -126,11 +125,16 @@ export default function WelcomePage() {
           {lang === "he" ? "יש לי כבר פרופיל →" : "I already have a profile →"}
         </Link>
 
-        <div className="mb-4">
-          <SocialShareButtons lang={lang} compact />
-        </div>
+        <p className="mt-3 text-center">
+          <Link
+            href="/share-app"
+            className="text-xs text-slate-400 transition hover:text-brand-600"
+          >
+            {lang === "he" ? "שיתוף עם חברים →" : "Share with friends →"}
+          </Link>
+        </p>
 
-        <p className="bs-disclaimer rounded-xl px-3 py-2 text-xs text-amber-950">
+        <p className="bs-disclaimer mt-4 rounded-xl px-3 py-2 text-xs text-amber-950">
           {lang === "he"
             ? "⚠️ הערכה בלבד — לא ייעוץ משפטי. יש להתייעץ עם עו\"ד."
             : "⚠️ Estimates only — not legal advice. Consult an attorney."}

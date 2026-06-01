@@ -1,25 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { PageHeader } from "@/components/ui";
 import { SocialShareButtons } from "@/components/share/SocialShareButtons";
 import { buildQrUrl } from "@/lib/shareCalc";
-import { getAppShareUrl, getDefaultShareContent } from "@/lib/share/socialShare";
+import { getAppShareUrl } from "@/lib/share/socialShare";
 import { BRAND } from "@/lib/brand/brand";
 
 export default function ShareAppPage() {
   const [lang, setLang] = useState<"he" | "en">("he");
+  const [showQr, setShowQr] = useState(false);
   const shareUrl = getAppShareUrl();
-  const content = getDefaultShareContent(lang, shareUrl);
 
   return (
     <div>
       <PageHeader
-        title={lang === "he" ? "שיתוף האפליקציה" : "Share the app"}
+        title={lang === "he" ? "שיתוף" : "Share"}
         subtitle={
           lang === "he"
-            ? "דחף/י ברשתות — עזור/י להורים שמתמודדים עם גירושין"
-            : "Share on social — help parents going through divorce"
+            ? "עזור/י למישהו שצריך — בלי לפרסם את הפרטים האישיים שלך"
+            : "Help someone who needs it — without exposing your private data"
         }
       />
 
@@ -44,33 +45,31 @@ export default function ShareAppPage() {
         </button>
       </div>
 
-      <SocialShareButtons lang={lang} url={shareUrl} />
+      <SocialShareButtons lang={lang} url={shareUrl} variant="full" />
 
-      <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-center">
-        <p className="mb-3 text-sm font-medium text-slate-700">
-          {lang === "he" ? "QR לשיתוף מהיר" : "QR for quick sharing"}
-        </p>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={buildQrUrl(shareUrl, 220)}
-          alt={`QR ${BRAND.name}`}
-          width={220}
-          height={220}
-          className="mx-auto rounded-xl border border-slate-100"
+      <button
+        type="button"
+        onClick={() => setShowQr((v) => !v)}
+        className="mt-4 flex w-full items-center justify-between rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm text-slate-600 transition hover:bg-slate-50"
+      >
+        <span>{lang === "he" ? "QR לשיתוף" : "Share QR code"}</span>
+        <ChevronDown
+          className={`h-4 w-4 transition ${showQr ? "rotate-180" : ""}`}
         />
-        <p className="mt-3 break-all text-xs text-slate-500" dir="ltr">
-          {shareUrl}
-        </p>
-      </div>
+      </button>
 
-      <div className="mt-6 rounded-2xl border border-brand-100 bg-brand-50 p-4 text-sm text-brand-900">
-        <p className="font-semibold">
-          {lang === "he" ? "טקסט מוכן להעתקה" : "Ready-to-copy text"}
-        </p>
-        <pre className="mt-2 whitespace-pre-wrap text-xs leading-relaxed">
-          {content.text}
-        </pre>
-      </div>
+      {showQr && (
+        <div className="mt-2 rounded-2xl border border-slate-200/80 bg-white p-4 text-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={buildQrUrl(shareUrl, 180)}
+            alt={`QR ${BRAND.name}`}
+            width={180}
+            height={180}
+            className="mx-auto rounded-lg"
+          />
+        </div>
+      )}
     </div>
   );
 }

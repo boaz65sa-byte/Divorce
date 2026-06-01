@@ -10,7 +10,6 @@ import {
   ToolChip,
 } from "@/components/ui";
 import { BsSection } from "@/components/brand/BsSimple";
-import { SocialShareButtons } from "@/components/share/SocialShareButtons";
 import { BRAND } from "@/lib/brand/brand";
 import {
   getChecklistForProfile,
@@ -182,10 +181,6 @@ export default function HomePage() {
         {quickActions.map((action) => (
           <FeatureCard key={action.href} {...action} />
         ))}
-      </div>
-
-      <div className="mt-8">
-        <SocialShareButtons lang="he" />
       </div>
 
       <h2 className="mb-3 mt-8 text-sm font-bold tracking-wide text-slate-500">
