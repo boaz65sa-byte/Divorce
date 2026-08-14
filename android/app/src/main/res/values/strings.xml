@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">תגרשן לי</string>
+    <string name="title_activity_main">תגרשן לי</string>
+    <string name="package_name">com.bssimple.tagarshanli</string>
+    <string name="custom_url_scheme">com.bssimple.tagarshanli</string>
+</resources>

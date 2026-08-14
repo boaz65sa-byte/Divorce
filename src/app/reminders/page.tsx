@@ -11,6 +11,11 @@ import {
   setNotificationsEnabled,
 } from "@/lib/notifications/reminderNotifications";
 import {
+  isNativePlatform,
+  requestNativeNotificationPermission,
+  syncNativeReminders,
+} from "@/lib/notifications/nativeReminders";
+import {
   getUpcomingReminders,
   useProfileStore,
 } from "@/lib/store/profileStore";
@@ -41,7 +46,8 @@ export default function RemindersPage() {
   const [type, setType] = useState<Reminder["type"]>("hearing");
   const [showForm, setShowForm] = useState(false);
   const [notificationsOn, setNotificationsOn] = useState(false);
-  const notifSupport = getNotificationSupport();
+  const native = isNativePlatform();
+  const notifSupport = native ? "default" : getNotificationSupport();
 
   useEffect(() => {
     setNotificationsOn(areNotificationsEnabled());
@@ -65,6 +71,13 @@ export default function RemindersPage() {
     if (notificationsOn) {
       setNotificationsEnabled(false);
       setNotificationsOn(false);
+      return;
+    }
+    if (native) {
+      const granted = await requestNativeNotificationPermission();
+      setNotificationsEnabled(granted);
+      setNotificationsOn(granted);
+      if (granted) syncNativeReminders(reminders);
       return;
     }
     const granted = await requestNotificationPermission();

@@ -193,6 +193,9 @@ export default function SettingsPage() {
             <Link href="/onboarding" className="text-brand-700 hover:underline">
               עבור/י שוב את האונבורדינג המלא
             </Link>
+            <Link href="/privacy" className="text-brand-700 hover:underline">
+              מדיניות פרטיות
+            </Link>
             <button
               type="button"
               onClick={handleReset}

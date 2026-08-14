@@ -67,7 +67,7 @@ export function AppHeader() {
 
   return (
     <header className="bs-glass-header sticky top-0 z-40">
-      <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-lg items-center justify-between px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
         <Link href="/" className="group flex items-center gap-2.5">
           <LogoMark size={36} className="transition group-hover:scale-105" />
           <div className="leading-tight">
