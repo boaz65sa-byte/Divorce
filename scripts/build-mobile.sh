@@ -1,24 +1,45 @@
 #!/bin/bash
 # Builds a static export of the app for Capacitor (iOS/Android).
-# The Next.js API routes (/api/analytics/*) need a server and can't be
-# statically exported, so they're excluded from this build only — the
-# native app's analytics calls will simply no-op (caught in try/catch).
-# The live website build (`npm run build`) is unaffected.
+#
+# Two things must NOT ship inside the native binary, so they're temporarily
+# moved aside for this build only (restored after, live website build unaffected):
+#
+# - src/app/api    — needs a server, can't be statically exported anyway.
+# - src/app/admin  — internal analytics dashboard with no UI entry point in
+#   the app. Apple rejected the first submission under Guideline 5.6
+#   ("features that appear to have been intentionally hidden during review")
+#   because this page shipped inside the bundle, unlinked from any nav, with
+#   only a client-side password field gating it — exactly what that
+#   guideline is designed to catch. Never let an unlinked admin/debug route
+#   ship inside a consumer app binary again.
 set -e
 
-API_DIR="src/app/api"
-API_BAK="src/app/_api-excluded-for-mobile-build"
+EXCLUDE_DIRS=("src/app/api" "src/app/admin")
+RESTORE_LIST=()
 
 cleanup() {
-  if [ -d "$API_BAK" ]; then
-    mv "$API_BAK" "$API_DIR"
-  fi
+  for pair in "${RESTORE_LIST[@]}"; do
+    bak="${pair%%|*}"
+    orig="${pair##*|}"
+    if [ -d "$bak" ]; then
+      mv "$bak" "$orig"
+    fi
+  done
 }
 trap cleanup EXIT
 
-if [ -d "$API_DIR" ]; then
-  mv "$API_DIR" "$API_BAK"
-fi
+for dir in "${EXCLUDE_DIRS[@]}"; do
+  if [ -d "$dir" ]; then
+    # Leading underscore is required — Next.js App Router only excludes
+    # path segments starting with "_" from routing (a trailing suffix,
+    # like "api-excluded", is NOT excluded and still gets built as a route).
+    parent="$(dirname "$dir")"
+    base="$(basename "$dir")"
+    bak="${parent}/_${base}-excluded-for-mobile-build"
+    mv "$dir" "$bak"
+    RESTORE_LIST+=("$bak|$dir")
+  fi
+done
 
 CAP_BUILD=1 npx next build
 
