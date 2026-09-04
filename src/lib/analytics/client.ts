@@ -4,6 +4,19 @@ import type { AnalyticsEventType } from "./types";
 
 const SESSION_KEY = "tagarshan-analytics-session";
 
+declare global {
+  interface Window {
+    Capacitor?: unknown;
+  }
+}
+
+/** No analytics on Capacitor/mobile static builds (no /api, avoid review noise). */
+function isAnalyticsDisabled(): boolean {
+  if (process.env.NEXT_PUBLIC_CAP_BUILD === "1") return true;
+  if (typeof window !== "undefined" && window.Capacitor) return true;
+  return false;
+}
+
 function getSessionId(): string {
   if (typeof window === "undefined") return "server";
   let sessionId = sessionStorage.getItem(SESSION_KEY);
@@ -19,6 +32,7 @@ async function sendEvent(payload: {
   path?: string;
   feature?: string;
 }): Promise<void> {
+  if (isAnalyticsDisabled()) return;
   try {
     await fetch("/api/analytics/track", {
       method: "POST",

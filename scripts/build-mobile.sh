@@ -41,6 +41,19 @@ for dir in "${EXCLUDE_DIRS[@]}"; do
   fi
 done
 
-CAP_BUILD=1 npx next build
+export CAP_BUILD=1
+export NEXT_PUBLIC_CAP_BUILD=1
+npx next build
+
+# Fail the mobile build if admin somehow still landed in the static export.
+if [ -d "out/admin" ] || [ -e "out/admin.html" ]; then
+  echo "ERROR: out/admin found after mobile build — admin must not ship in the binary." >&2
+  exit 1
+fi
+if [ -d "out/api" ]; then
+  echo "ERROR: out/api found after mobile build — API routes must not ship." >&2
+  exit 1
+fi
+echo "Verified: out/admin and out/api are absent from the mobile export."
 
 npx cap sync

@@ -40,7 +40,7 @@ const tools = [
   { href: "/journal", title: "יומן הוצאות", description: "תיעוד + חלוקה" },
   { href: "/agreement", title: "טיוטת הסכם", description: "מבוסס פרופיל" },
   { href: "/assistant", title: "עוזר חכם", description: "שאלות על החוק" },
-  { href: "/professionals", title: "אנשי מקצוע", description: "עו\"ד, טוענים" },
+  { href: "/professionals", title: "אנשי מקצוע", description: "קישורים רשמיים" },
 ];
 
 export default function CalculatorsPage() {
