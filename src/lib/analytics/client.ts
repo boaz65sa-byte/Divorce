@@ -5,6 +5,13 @@ import type { AnalyticsEventType } from "./types";
 
 const SESSION_KEY = "tagarshan-analytics-session";
 
+/** No analytics on Capacitor/mobile builds (no /api there, avoid App Review noise). */
+function isAnalyticsDisabled(): boolean {
+  if (process.env.NEXT_PUBLIC_CAP_BUILD === "1") return true;
+  if (Capacitor.isNativePlatform()) return true;
+  return false;
+}
+
 function getSessionId(): string {
   if (typeof window === "undefined") return "server";
   let sessionId = sessionStorage.getItem(SESSION_KEY);
@@ -20,7 +27,7 @@ async function sendEvent(payload: {
   path?: string;
   feature?: string;
 }): Promise<void> {
-  if (Capacitor.isNativePlatform()) return;
+  if (isAnalyticsDisabled()) return;
 
   try {
     await fetch("/api/analytics/track", {

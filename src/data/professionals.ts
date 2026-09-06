@@ -1,45 +1,11 @@
 import type { Professional } from "@/lib/types";
 
-export const professionals: Professional[] = [
-  {
-    id: "1",
-    name: "עו\"ד דיני משפחה — דוגמה",
-    role: "lawyer",
-    specialty: "גירושין, משמורת, מזונות",
-    city: "תל אביב",
-    phone: "03-0000000",
-    email: "example@law.co.il",
-    languages: ["עברית", "אנגלית"],
-  },
-  {
-    id: "2",
-    name: "טוען רבני — דוגמה",
-    role: "rabbinical-advocate",
-    specialty: "בית דין רבני, גט, כתובה",
-    city: "ירושלים",
-    phone: "02-0000000",
-    languages: ["עברית"],
-  },
-  {
-    id: "3",
-    name: "מגשר משפחה — דוגמה",
-    role: "mediator",
-    specialty: "יישוב סכסוך, הסכמי גירושין",
-    city: "חיפה",
-    phone: "04-0000000",
-    email: "mediator@example.co.il",
-    languages: ["עברית", "ערבית"],
-  },
-  {
-    id: "4",
-    name: "עו\"ד דיני משפחה — דוגמה",
-    role: "lawyer",
-    specialty: "איזון משאבים, חלוקת רכוש",
-    city: "באר שבע",
-    phone: "08-0000000",
-    languages: ["עברית"],
-  },
-];
+/**
+ * No in-app professional directory. Fake example contacts (phones/emails)
+ * were removed for App Store Guideline 5.6 / misleading content.
+ * The /professionals page is official resource links only.
+ */
+export const professionals: Professional[] = [];
 
 export const roleLabels: Record<Professional["role"], string> = {
   lawyer: "עורך/ת דין",
@@ -52,4 +18,39 @@ export const roleFilters: Array<{ value: Professional["role"] | "all"; label: st
   { value: "lawyer", label: "עורכי דין" },
   { value: "rabbinical-advocate", label: "טוענים רבניים" },
   { value: "mediator", label: "מגשרים" },
+];
+
+export type OfficialResourceLink = {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+};
+
+/** Public official resources only — not referrals or a lawyer directory. */
+export const officialProfessionalResources: OfficialResourceLink[] = [
+  {
+    id: "kolzchut-family",
+    title: "כל זכות — דיני משפחה וגירושין",
+    description: "מידע ציבורי על הליכים, זכויות ומוסדות רלוונטיים.",
+    href: "https://www.kolzchut.org.il/he/%D7%92%D7%99%D7%A8%D7%95%D7%A9%D7%99%D7%9F",
+  },
+  {
+    id: "israel-bar-search",
+    title: "לשכת עורכי הדין — איתור עורך דין",
+    description: "חיפוש רשמי ברשימת חברי הלשכה (לא המלצה של האפליקציה).",
+    href: "https://www.israelbar.org.il/lawyer_search",
+  },
+  {
+    id: "kolzchut-mediation",
+    title: "כל זכות — גישור ויישוב סכסוכים",
+    description: "מידע על גישור והליכי יישוב סכסוך במשפחה.",
+    href: "https://www.kolzchut.org.il/he/%D7%92%D7%99%D7%A9%D7%95%D7%A8",
+  },
+  {
+    id: "gov-family-courts",
+    title: "מערכת בתי המשפט — בתי המשפט לענייני משפחה",
+    description: "מידע מוסדי על בתי המשפט לענייני משפחה.",
+    href: "https://www.gov.il/he/departments/the_judicial_authority",
+  },
 ];
