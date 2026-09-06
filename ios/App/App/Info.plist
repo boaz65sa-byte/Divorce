@@ -24,6 +24,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4350877545415820~7067443519</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>אנחנו משתמשים בנתונים כדי להציג פרסומות רלוונטיות יותר.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

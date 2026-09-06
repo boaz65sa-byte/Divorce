@@ -11,10 +11,12 @@
     "build:mobile": "bash scripts/build-mobile.sh"
   },
   "dependencies": {
+    "@capacitor-community/admob": "^8.0.1",
     "@capacitor/android": "^8.5.0",
     "@capacitor/core": "^8.5.0",
     "@capacitor/ios": "^8.5.0",
     "@capacitor/local-notifications": "^8.2.1",
+    "@revenuecat/purchases-capacitor": "^13.4.0",
     "@upstash/redis": "^1.38.0",
     "html2pdf.js": "^0.14.0",
     "lucide-react": "^1.17.0",

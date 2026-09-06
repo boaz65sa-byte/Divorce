@@ -1,5 +1,6 @@
 "use client";
 
+import { Capacitor } from "@capacitor/core";
 import type { AnalyticsEventType } from "./types";
 
 const SESSION_KEY = "tagarshan-analytics-session";
@@ -19,6 +20,8 @@ async function sendEvent(payload: {
   path?: string;
   feature?: string;
 }): Promise<void> {
+  if (Capacitor.isNativePlatform()) return;
+
   try {
     await fetch("/api/analytics/track", {
       method: "POST",

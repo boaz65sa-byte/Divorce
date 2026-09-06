@@ -3,6 +3,7 @@ import { BottomNav, AppHeader } from "@/components/layout/Navigation";
 import { BsPageAccent, BsPatternBg, BsSignature } from "@/components/brand/BsSimple";
 import { RegisterServiceWorker } from "@/components/brand/RegisterServiceWorker";
 import { ReminderNotificationSync } from "@/components/brand/ReminderNotificationSync";
+import { MonetizationInit } from "@/components/brand/MonetizationInit";
 import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 import { LegalDisclaimer } from "@/components/ui";
 import { BRAND } from "@/lib/brand/brand";
@@ -69,6 +70,7 @@ export default function RootLayout({
         </a>
         <RegisterServiceWorker />
         <ReminderNotificationSync />
+        <MonetizationInit />
         <AnalyticsTracker />
         <BsPatternBg>
           <AppHeader />

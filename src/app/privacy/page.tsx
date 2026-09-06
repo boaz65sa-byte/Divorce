@@ -42,9 +42,9 @@ export default function PrivacyPage() {
           <p className="mt-2 text-slate-700">
             מידע זה אינו כולל שם, מספר טלפון, אימייל, תעודת זהות או כל פרט
             מזהה אחר, ואינו מקושר לתוכן שהזנת במחשבונים או בצ׳ק-ליסט.
-            באפליקציה הנייטיבית ל-iOS/Android מנגנון זה כבוי לחלוטין —
-            האפליקציה פועלת באופן מלא במצב מקומי (offline) בלי לשלוח מידע
-            לאף שרת.
+            באפליקציה הנייטיבית ל-iOS/Android מנגנון האנליטיקה כבוי.
+            תוכן המקרה נשאר במכשיר. רשת הפרסום (AdMob) מתוארת בסעיף
+            הנפרד למטה.
           </p>
         </Card>
 
@@ -61,13 +61,40 @@ export default function PrivacyPage() {
 
         <Card>
           <h2 className="mb-2 text-lg font-semibold text-slate-900">
+            פרסומות באפליקציה הנייטיבית
+          </h2>
+          <p className="mb-2 text-slate-700">
+            בגרסת iOS/Android מוצג באנר פרסומת דרך Google AdMob. זה לא
+            חל על גרסת האתר בדפדפן. תוכן המקרה שלך (מחשבונים, צ׳ק-ליסט,
+            יומן) לא נשלח לרשת הפרסום.
+          </p>
+          <p className="mb-2 text-slate-700">
+            Google עשויה לאסוף מזהה פרסום של המכשיר (IDFA ב-iOS, אם
+            אישרת מעקב), כתובת IP משוערת, סוג מכשיר ונתוני שימוש בפרסומות
+            — כדי להציג מודעות ולמדוד אותן. ב-iOS מופיעה בקשת App Tracking
+            Transparency; אם תסרב/י, עדיין יוצגו מודעות לא-מותאמות אישית.
+          </p>
+          <p className="text-slate-700">
+            מדיניות Google:{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              className="text-brand-700 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              policies.google.com/privacy
+            </a>
+          </p>
+        </Card>
+
+        <Card>
+          <h2 className="mb-2 text-lg font-semibold text-slate-900">
             שיתוף עם צדדים שלישיים
           </h2>
           <p className="text-slate-700">
-            אנחנו לא מוכרים, משתפים או מעבירים מידע לצדדים שלישיים למטרות
-            שיווק. שירותי צד שלישי המשמשים להפעלת האתר (כגון אחסון ענן
-            לנתוני שימוש אנונימיים) מקבלים רק את המידע האנונימי המפורט
-            למעלה.
+            אנחנו לא מוכרים את תוכן המקרה שלך לצדדים שלישיים. שיתוף מתרחש
+            רק כמפורט למעלה: אנליטיקה אנונימית בגרסת האתר, ו-Google AdMob
+            בגרסה הנייטיבית לצורך פרסומות.
           </p>
         </Card>
 

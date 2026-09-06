@@ -29,6 +29,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Native AdMob banner sits above the bottom nav and overlays the WebView. */
+html.has-ad-banner #main-content {
+  padding-bottom: 11.5rem;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
